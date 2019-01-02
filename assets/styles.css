@@ -1,0 +1,38 @@
+.black {
+    background-color: #000000
+}
+
+.red {
+    background-color: #d64a4a;
+}
+
+.blue {
+    background-color: #4000ff;
+}
+
+.green {
+    background-color: #41f300;
+}
+
+.yellow {
+    background-color: #f7fd00;
+}
+
+.light-up {
+    box-shadow: 0px 0px 20px 5px #ffffff, 0px 0px 50px 10px #ffffff inset;
+}
+
+.failure {
+    box-shadow: 0px 0px 20px 5px #ff0000, 0px 0px 50px 10px #ff0000 inset;
+}
+
+.simon-color {
+    height: 100px;
+    width: 100px;
+    border-radius: 50px;
+    margin: 50px 150px;
+}
+
+.simon-game{
+    padding: 15px;
+}
