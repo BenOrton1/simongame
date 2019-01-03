@@ -20,9 +20,8 @@ $(document).ready(function() {
         simonObject.gameOrder = [];
         simonObject.playerOrder=[];
         playerTurn=false;
-        /*add random order*/
         for (var i=0; i<20; i++){
-            simonObject.gameOrder.push(1);
+            simonObject.gameOrder.push(Math.floor(Math.random()*simonObject.numberOfColours)+1);
         }
         console.log(simonObject);
     });
