@@ -4,26 +4,34 @@ $(document).ready(function() {
         playerOrder: [],
         gameOrder: [],
         currentTurn: 0,
-        computerColorCount: 0,
         playerTurn: false,
+    };
+    let simonColours = {
+        computerColorCount: 0,
         numberOfColours: 4,
-        colours: [red, green, blue, yellow]
+        colours: [red, green, blue, yellow],
+        time: 500,
+        timeOut: 100
     };
     /*computer turn functions*/
     function computerFlashTimeout() {
-        console.log(simonObject.gameOrder[simonObject.computerColorCount]);
-        var thisFlash = simonObject.gameOrder[simonObject.computerColorCount];
-        var thisColour = simonObject.colours[thisFlash - 1];
-        console.log(thisColour);
+        /*console.log(simonObject.gameOrder[simonColours.computerColorCount]);*/
+        var thisFlash = simonObject.gameOrder[simonColours.computerColorCount];
+        var thisColour = simonColours.colours[thisFlash - 1];
+        /*console.log(thisColour);*/
         $(thisColour).addClass("light-up");
-        simonObject.computerColorCount++;
+        simonColours.computerColorCount++;
     }
 
     function clearColours() {
         $(".simon-color").removeClass("light-up");
     }
     /*end of computer turn functions*/
-
+    /*playerturn functions*/
+    function check(){
+        
+    }
+    /*end of playerturn functions*/
     /*startgame
     clear all of old games 
     set up new game order 
@@ -33,57 +41,60 @@ $(document).ready(function() {
         clearColours();
         simonObject.gameOrder = [];
         simonObject.playerOrder = [];
-        simonObject.currentTurn = 20;
+        simonObject.currentTurn = 0;
         simonObject.playerTurn = false;
         for (var i = 0; i < 20; i++) {
-            simonObject.gameOrder.push(Math.floor(Math.random() * simonObject.numberOfColours) + 1);
+            simonObject.gameOrder.push(Math.floor(Math.random() * simonColours.numberOfColours) + 1);
         }
         console.log(simonObject);
         computerTurn();
     });
 
-
-    /*computer turn
-    stop player clicking
-    clear player order
-    flash correct amount of colours from gameOrder 
-    start player turn
-    */
     function computerTurn() {
         simonObject.playerTurn = false;
-        simonObject.computerColorCount = 0;
-        var lightUpInterval = setInterval(lightUp, 500);
+        simonColours.computerColorCount = 0;
+        var lightUpInterval = setInterval(lightUp, simonColours.time);
 
         function lightUp() {
-            if (simonObject.computerColorCount < simonObject.currentTurn) {
+            if (simonColours.computerColorCount <= simonObject.currentTurn) {
                 clearColours();
-                setTimeout(computerFlashTimeout, 100);
+                setTimeout(computerFlashTimeout, simonColours.timeOut);
             }
             else {
                 clearColours();
                 clearInterval(lightUpInterval);
+                playerTurn();
+                simonObject.currentTurn++;
             }
         }
-        simonObject.currentTurn++;
-        playerTurn();
     }
 
     function playerTurn() {
-        clearColours();
-        /*
-        if (simonObject.currentTurn > 20) {
-           console.log("end");
-        }else{
-             simonObject.currentTurn++;
-             computerTurn();
-        }
+        simonObject.playerTurn = true;
+        /*user turnallow player to click.*/
+
+        $(simonColours.colours).click(function() {
+            if (simonObject.playerTurn) {
+                console.log(simonColours.colours.indexOf(this));
+                $(this).addClass('light-up');
+                var playerGuess = simonColours.colours.indexOf(this);
+                simonObject.playerOrder.push(playerGuess);
+                console.log(simonObject.playerOrder);
+                setTimeout(clearColours, simonColours.time);
+            }
+            check();
+        });
+        /*create an on click event that adds to playerorder*/
+
+        /*create a check function that checks player order against game order */
+
+
+
+        /*store player order and check against gameOrder
+        ifcorrect check if win or start comp turn again
         */
     }
-    /*user turn
-    allow player to click.
-    store player order and check against gameOrder
-    ifcorrect check if win or start comp turn again
-    */
+
 
     /*user wins or start again*/
 });
