@@ -24,7 +24,7 @@ $(document).ready(function() {
     $("#play").click(function() {
         clearColours();
         simonObject.gameOrder = [];
-        simonObject.currentTurn = 0;
+        simonObject.currentTurn = 3;
         simonObject.playerTurn = false;
         for (var i = 0; i < 20; i++) {
             simonObject.gameOrder.push(Math.floor(Math.random() * simonColours.numberOfColours));
@@ -32,7 +32,7 @@ $(document).ready(function() {
         computerTurn();
     });
 
-//computer Turn
+    //computer Turn
     function computerTurn() {
         simonObject.playerTurn = false;
         simonColours.colorCount = 0;
@@ -48,6 +48,7 @@ $(document).ready(function() {
                 clearColours();
                 clearInterval(lightUpInterval);
                 simonColours.colorCount = 0;
+                simonObject.playerTurn = true;
                 playerTurn();
 
             }
@@ -62,28 +63,26 @@ $(document).ready(function() {
     }
 
 
-//player turn
+    //player turn
     function playerTurn() {
-        simonObject.playerTurn = true;
-        $(simonColours.colours).click(function() {
-            if (simonObject.playerTurn) {
-                if (simonColours.colours.indexOf(this) == simonObject.gameOrder[simonColours.colorCount]) {
-                    simonColours.indexNumber = simonColours.colours.indexOf(this);
-                    simonObject.correct = true;
-                }
-                console.log(simonColours.colorCount);
-                check();
+        $(simonColours.colours).onclick= (function() {
+            if (simonColours.colours.indexOf(this) == simonObject.gameOrder[simonColours.colorCount]) {
+                simonColours.indexNumber = simonColours.colours.indexOf(this);
+                simonObject.correct = true;
             }
+            check();
+            console.log(simonColours.colorCount);
         });
+
     }
 
     function check() {
-        
-        if (simonObject.correct == true) {
+        if (simonObject.correct && simonObject.playerTurn) {
             $(simonColours.colours[simonColours.indexNumber]).addClass('light-up');
             setTimeout(function() { clearColours() }, simonColours.time);
-            simonColours.colorCount++;
             simonObject.correct = false;
+            simonObject.playerTurn=false;
+            simonColours.colorCount++;
             playerTurnCounter();
         }
         else {
@@ -96,10 +95,10 @@ $(document).ready(function() {
             setTimeout(function() { clearColours() }, simonColours.time);
             simonColours.colorCount = 0;
             simonObject.currentTurn++;
-            simonObject.playerTurn = false;
             computerTurn();
         }
         else {
+            simonObject.playerTurn = true;
             playerTurn();
         }
     }
