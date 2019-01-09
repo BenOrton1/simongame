@@ -9,6 +9,7 @@ $(document).ready(function() {
     let simonColours = {
         colorCount: 0,
         numberOfColours: 4,
+        indexNumber: 0,
         colours: [red, green, blue, yellow],
         time: 500,
         timeOut: 100
@@ -45,6 +46,7 @@ $(document).ready(function() {
             else {
                 clearColours();
                 clearInterval(lightUpInterval);
+                simonColours.colorCount = 0;
                 playerTurn();
 
             }
@@ -62,17 +64,19 @@ $(document).ready(function() {
     function playerTurn() {
         console.log(simonObject.currentTurn);
         simonObject.playerTurn = true;
-        var currentlength = 0;
+        
 
         $(simonColours.colours).click(function() {
             if (simonObject.playerTurn) {
-                if (simonColours.colours.indexOf(this) == simonObject.gameOrder[currentlength]) {
-                    $(this).addClass('light-up');
-                    currentlength++;
+                if (simonColours.colours.indexOf(this) == simonObject.gameOrder[simonColours.colorCount]) {
+                    simonColours.indexNumber = simonColours.colours.indexOf(this);
+                    simonObject.correct = true;
                 }
-                if ((currentlength - 1) == simonObject.currentTurn) {
+                check();
+                /*
+                if ((simonColours.colorCount - 1) == simonObject.currentTurn) {
                     setTimeout(function() { clearColours() }, simonColours.time);
-                    currentlength = 0;
+                    simonColours.colorCount = 0;
                     simonObject.currentTurn++;
                     simonObject.playerTurn = false;
                     computerTurn();
@@ -80,7 +84,21 @@ $(document).ready(function() {
                 else {
                     setTimeout(function() { clearColours() }, simonColours.time);
                 }
+                */
             }
         });
     }
+
+    function check() {
+        if (simonObject.correct == true) {
+            $(simonColours.colours[simonColours.indexNumber]).addClass('light-up');
+            setTimeout(function() { clearColours() }, simonColours.time);
+            simonColours.colorCount++;
+            
+        }
+        else {
+            $(".simon-color").addClass('failure');
+        }
+    }
+    
 });

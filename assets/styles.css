@@ -36,3 +36,8 @@
 .simon-game{
     padding: 15px;
 }
+
+.turn-counter{
+    color: #fafafa;
+    text-align: center;
+}
