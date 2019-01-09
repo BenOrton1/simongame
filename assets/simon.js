@@ -18,6 +18,7 @@ $(document).ready(function() {
 
     function clearColours() {
         $(".simon-color").removeClass("light-up");
+        $(".simon-color").removeClass("failure");
     }
 
     $("#play").click(function() {
@@ -28,10 +29,10 @@ $(document).ready(function() {
         for (var i = 0; i < 20; i++) {
             simonObject.gameOrder.push(Math.floor(Math.random() * simonColours.numberOfColours));
         }
-        /*hard mode. 2 colours light up at once. push gameorder i + math random*number of colours*/
         computerTurn();
     });
 
+//computer Turn
     function computerTurn() {
         simonObject.playerTurn = false;
         simonColours.colorCount = 0;
@@ -54,51 +55,53 @@ $(document).ready(function() {
     }
 
     function computerFlashTimeout() {
-        /*console.log(simonObject.gameOrder[simonColours.colorCount]);*/
         var thisFlash = simonObject.gameOrder[simonColours.colorCount];
         var thisColour = simonColours.colours[thisFlash];
         $(thisColour).addClass("light-up");
         simonColours.colorCount++;
     }
 
-    function playerTurn() {
-        console.log(simonObject.currentTurn);
-        simonObject.playerTurn = true;
-        
 
+//player turn
+    function playerTurn() {
+        simonObject.playerTurn = true;
         $(simonColours.colours).click(function() {
             if (simonObject.playerTurn) {
                 if (simonColours.colours.indexOf(this) == simonObject.gameOrder[simonColours.colorCount]) {
                     simonColours.indexNumber = simonColours.colours.indexOf(this);
                     simonObject.correct = true;
                 }
+                console.log(simonColours.colorCount);
                 check();
-                /*
-                if ((simonColours.colorCount - 1) == simonObject.currentTurn) {
-                    setTimeout(function() { clearColours() }, simonColours.time);
-                    simonColours.colorCount = 0;
-                    simonObject.currentTurn++;
-                    simonObject.playerTurn = false;
-                    computerTurn();
-                }
-                else {
-                    setTimeout(function() { clearColours() }, simonColours.time);
-                }
-                */
             }
         });
     }
 
     function check() {
+        
         if (simonObject.correct == true) {
             $(simonColours.colours[simonColours.indexNumber]).addClass('light-up');
             setTimeout(function() { clearColours() }, simonColours.time);
             simonColours.colorCount++;
-            
+            simonObject.correct = false;
+            playerTurnCounter();
         }
         else {
             $(".simon-color").addClass('failure');
         }
     }
-    
+
+    function playerTurnCounter() {
+        if ((simonColours.colorCount - 1) == simonObject.currentTurn) {
+            setTimeout(function() { clearColours() }, simonColours.time);
+            simonColours.colorCount = 0;
+            simonObject.currentTurn++;
+            simonObject.playerTurn = false;
+            computerTurn();
+        }
+        else {
+            playerTurn();
+        }
+    }
+
 });
