@@ -50,8 +50,6 @@ $(document).ready(function() {
                 simonColours.playerCount = 0;
                 simonObject.playerOrder = [];
                 simonObject.playerTurn = true;
-                playerTurn();
-
             }
         }
     }
@@ -65,26 +63,27 @@ $(document).ready(function() {
 
 
     //player turn
+    $(simonColours.colours).click(function(PlayerClick) {
+        simonColours.indexNumber = simonColours.colours.indexOf(this);
+        playerTurn();
+    });
 
     function playerTurn() {
-        $(simonColours.colours).click(function() {
-            simonColours.indexNumber = simonColours.colours.indexOf(this);
-            console.log(simonColours.playerCount);
+        if (simonObject.playerTurn) {
             check();
-        });
-
+        }
     }
 
     function check() {
-            if (simonColours.indexNumber == simonObject.gameOrder[simonColours.playerCount]) {
-                $(simonColours.colours[simonColours.indexNumber]).addClass('light-up');
-                setTimeout(function() { clearColours() }, simonColours.time);
-                playerTurnCounter();
-            }
-            else {
-                $(".simon-color").addClass('failure');
-                setTimeout(function() { clearColours() }, simonColours.time);
-                playerTurn();
+        if (simonColours.indexNumber == simonObject.gameOrder[simonColours.playerCount]) {
+            $(simonColours.colours[simonColours.indexNumber]).addClass('light-up');
+            setTimeout(function() { clearColours() }, simonColours.time);
+            playerTurnCounter();
+        }
+        else {
+            $(".simon-color").addClass('failure');
+            computerTurn();
+            
         }
     }
 
@@ -97,7 +96,7 @@ $(document).ready(function() {
         }
         else {
             simonColours.playerCount++;
-            playerTurn();
+            
         }
     }
 });
