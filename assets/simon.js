@@ -1,9 +1,9 @@
 $(document).ready(function() {
     let simonObject = {
-        playerOrder: [],
         gameOrder: [],
         currentTurn: 0,
         playerTurn: false,
+        strict: true
     };
     let simonColours = {
         colorCount: 0,
@@ -29,11 +29,22 @@ $(document).ready(function() {
         for (var i = 0; i < 20; i++) {
             simonObject.gameOrder.push(Math.floor(Math.random() * simonColours.numberOfColours));
         }
+        strict();
+        console.log(simonObject.strict);
         computerTurn();
     });
 
+    function strict() {
+        if (document.getElementById('strict').checked) {
+            simonObject.strict = true;
+        }
+        else {
+            simonObject.strict = false;
+        }
+    }
     //computer Turn
     function computerTurn() {
+        $("#turn-counter").html("Turn "+(simonObject.currentTurn+1));
         simonObject.playerTurn = false;
         simonColours.colorCount = 0;
 
@@ -80,10 +91,13 @@ $(document).ready(function() {
             setTimeout(function() { clearColours() }, simonColours.time);
             playerTurnCounter();
         }
+        else if (simonObject.strict) {
+            $(".simon-color").addClass('failure');
+            alert("failure");
+        }
         else {
             $(".simon-color").addClass('failure');
             computerTurn();
-            
         }
     }
 
@@ -96,7 +110,7 @@ $(document).ready(function() {
         }
         else {
             simonColours.playerCount++;
-            
+
         }
     }
 });
