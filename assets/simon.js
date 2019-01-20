@@ -4,7 +4,7 @@ $(document).ready(function() {
         currentTurn: 0,
         playerTurn: false,
         strict: true,
-        winNumber: 2
+        winNumber:20
     };
     let simonColours = {
         colorCount: 0,
@@ -12,6 +12,7 @@ $(document).ready(function() {
         numberOfColours: 4,
         indexNumber: 0,
         colours: [red, green, blue, yellow],
+        backgroundColors : ['#481616', '#0e3300', '#1a0065', '#2a2b00'],
         time: 500,
         timeOut: 100
     };
@@ -21,22 +22,17 @@ $(document).ready(function() {
         $(".simon-color").removeClass("light-up");
         $(".simon-color").removeClass("failure");
     }
-    function reset() {
-        $('.button-background').css("z-index", "1");
-        $('.button-background').css("background-color", "#121c2f");
-        $('#play').css('position', 'fixed');
-        $('#play').css('padding', '100px 100px');
-        $('#play').css('font-size', '100px');
-    }
 
     $("#play").click(function() {
-        $('.button-background').css("z-index", "-1");
-        $('.button-background').css("background-color", "#9db8ec");
         $('#play').css('position', 'relative');
         $('#play').css('padding', '15px 30px');
         $('#play').css('font-size', '15px');
         $('#play').html('Restart');
-
+        $('#play').css('z-index', '0');
+        $('.strict-button').css('z-index', '10');
+        $('.button-background').css("z-index", "1");
+        
+        
         clearColours();
         simonObject.gameOrder = [];
         simonObject.currentTurn = 0;
@@ -44,22 +40,24 @@ $(document).ready(function() {
         for (var i = 0; i < 20; i++) {
             simonObject.gameOrder.push(Math.floor(Math.random() * simonColours.numberOfColours));
         }
-        strict();
-        console.log(simonObject.strict);
-        computerTurn();
     });
-
-    function strict() {
-        if (document.getElementById('strict').checked) {
-            simonObject.strict = true;
-        }
-        else {
-            simonObject.strict = false;
-        }
-    }
+  $('#strict-on').click(function() {
+     simonObject.strict=true;
+     $('.strict-button').css('z-index', '-10');
+     $('.button-background').css("z-index", "-1");
+     computerTurn();
+  });
+  
+   $('#strict-off').click(function() {
+     simonObject.strict=false;
+     $('.strict-button').css('z-index', '-10');
+     $('.button-background').css("z-index", "-1");
+     computerTurn();
+  });
     //computer Turn
     function computerTurn() {
         $("#turn-counter").html("Turn " + (simonObject.currentTurn + 1));
+        $( ".turn-counter" ).css("transform", "scale(0,1)" );
         simonObject.playerTurn = false;
         simonColours.colorCount = 0;
         var lightUpInterval = setInterval(computerLightUp, simonColours.time);
@@ -102,6 +100,7 @@ $(document).ready(function() {
     function check() {
         if (simonColours.indexNumber == simonObject.gameOrder[simonColours.playerCount]) {
             $(simonColours.colours[simonColours.indexNumber]).addClass('light-up');
+            $('.button-background').css("background-color", simonColours.backgroundColors[simonColours.indexNumber]);
             setTimeout(function() { clearColours() }, simonColours.time);
             playerTurnCounter();
         }
@@ -139,5 +138,14 @@ $(document).ready(function() {
         alert("you win");
         reset();
         $('#play').html('Play again?');
+    }
+
+    function reset() {
+        $('.button-background').css("z-index", "1");
+        $('.button-background').css("background-color", "#121c2f");
+        $('#play').css('position', 'fixed');
+        $('#play').css('padding', '100px 100px');
+        $('#play').css('font-size', '100px');
+        $('#play').css("z-index", "2");
     }
 });
