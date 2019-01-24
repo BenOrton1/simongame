@@ -73,8 +73,8 @@ $(document).ready(function() {
 
     function computerTurn() {
 
-        $('#turn-counter').html('Turn ' + (simonObject.currentTurn + 1));
-        $('.turn-counter').css('transform', 'scale(0,1)');
+        $('.turn-counter').css('transform', 'scale(1,0)');
+        setTimeout(htmlUpdate,300);
         simonObject.playerTurn = false;
         simonColours.colorCount = 0;
         const lightUpInterval = setInterval(computerLightUp, simonColours.time);
@@ -94,6 +94,10 @@ $(document).ready(function() {
         }
     }
 
+    function htmlUpdate() {
+        $('#turn-counter').html('Turn ' + (simonObject.currentTurn + 1));
+        $('.turn-counter').css('transform', 'scale(1,1)');
+    }
     //player turn
     function playerTurn() {
         if (simonObject.playerTurn) {
