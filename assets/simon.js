@@ -26,8 +26,9 @@ $(document).ready(function() {
 
     $('#play').click(function() {
         $('#play').css('position', 'relative');
-        $('#play').css('padding', '15px 30px');
-        $('#play').css('font-size', '15px');
+        $('#play').css('padding', '45px 45px');
+        $('#play').css('font-size', '30px');
+        $('#play').css('opacity', '0.6');
         $('#play').html('Restart');
         $('#play').css('z-index', '0');
         $('.strict-button').css('z-index', '10');
@@ -126,11 +127,11 @@ $(document).ready(function() {
 
     function reset() {
         $('.button-background').css('z-index', '1');
-        $('.button-background').css('background-color', '#121c2f');
         $('#play').css('position', 'fixed');
         $('#play').css('padding', '100px 100px');
         $('#play').css('font-size', '100px');
         $('#play').css('z-index', '2');
+        $('#play').css('opacity', '1');
     }
 
     function win() {

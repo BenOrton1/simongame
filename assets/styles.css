@@ -1,17 +1,17 @@
 .red {
-    background-color: #d64a4a;
+     border-color: #d64a4a;
 }
 
 .blue {
-    background-color: #4000ff;
+    border-color: #4000ff;
 }
 
 .green {
-    background-color: #41f300;
+    border-color: #41f300;
 }
 
 .yellow {
-    background-color: #f7fd00;
+    border-color: #f7fd00;
 }
 
 .light-up {
@@ -26,11 +26,18 @@
     height: 100px;
     width: 100px;
     border-radius: 50px;
+    border-style: solid;
+    border-width:10px;
     margin: 50px 150px;
 }
 
 .simon-game {
     padding: 15px;
+}
+
+.smaller-text{
+    padding-top:35px;
+    font-size:15px;
 }
 
 .turn-counter {
