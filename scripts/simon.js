@@ -1,4 +1,4 @@
-/*$(document).ready(function() {*/
+$(document).ready(function() {
     const simonObject = {
         gameOrder: [],
         currentTurn: 0,
@@ -49,7 +49,7 @@
         else if (simonObject.strict) {
             $('.simon-color').addClass('failure');
             reset();
-            
+
             $('#play').html('<p>You Lost</p> <p>Try Again?</p>');
         }
         else {
@@ -86,6 +86,7 @@
                 simonObject.playerTurn = true;
             }
         }
+
     }
 
     function gameSetUp() {
@@ -98,15 +99,15 @@
         $('#turn-counter').html('Turn ' + (simonObject.currentTurn + 1));
         $('.turn-counter').css('transform', 'scale(1,1)');
     }
-    
-    function playButtonPressed(){
+
+    function playButtonPressed() {
         clearColours();
         simonObject.gameOrder = [];
         simonObject.currentTurn = 0;
         simonObject.playerTurn = false;
         gameSetUp();
-    };
-    
+    }
+
     function playerTurn() {
         if (simonObject.playerTurn) {
             check();
@@ -164,4 +165,4 @@
         simonColours.indexNumber = simonColours.colours.indexOf(this);
         playerTurn();
     });
-//});
+});
