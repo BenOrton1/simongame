@@ -4,7 +4,10 @@ $(document).ready(function() {
         currentTurn: 0,
         playerTurn: false,
         strict: true,
-        winNumber: 20
+        winNumber: 20,
+        rightAnswer: new Audio("assets/sounds/right.mp3"),
+        wrong: new Audio("assets/sounds/wrong.mp3"),
+        newTurn: new Audio("assets/sounds/nextTurn.mp3")
     };
     const simonColours = {
         colorCount: 0,
@@ -42,18 +45,19 @@ $(document).ready(function() {
             $(simonColours.colours[simonColours.indexNumber]).addClass('light-up');
             const backgroundGradienteffect = 'radial-gradient(' + simonColours.backgroundColors[simonColours.indexNumber] + ',' + simonColours.backgroundGradient[simonColours.indexNumber] + ')';
             $('.button-background').css('background-image', backgroundGradienteffect);
-
             setTimeout(function() { clearColours() }, simonColours.time);
+            simonObject.rightAnswer.play();
             playerTurnCounter();
         }
         else if (simonObject.strict) {
             $('.simon-color').addClass('failure');
             reset();
-
+            simonObject.wrong.play();
             $('#play').html('<p>You Lost</p> <p>Try Again?</p>');
         }
         else {
             $('.simon-color').addClass('failure');
+            simonObject.wrong.play();
             computerTurn();
         }
     }
@@ -110,6 +114,7 @@ $(document).ready(function() {
 
     function playerTurn() {
         if (simonObject.playerTurn) {
+            clearColours();
             check();
         }
     }
@@ -120,6 +125,7 @@ $(document).ready(function() {
                 setTimeout(function() { clearColours() }, simonColours.time);
                 simonColours.colorCount = 0;
                 simonObject.currentTurn++;
+                simonObject.newTurn.play();
                 computerTurn();
             }
             else {
@@ -161,7 +167,7 @@ $(document).ready(function() {
         computerTurn();
     });
 
-    $(simonColours.colours).click(function(PlayerClick) {
+    $(simonColours.colours).click(function() {
         simonColours.indexNumber = simonColours.colours.indexOf(this);
         playerTurn();
     });
