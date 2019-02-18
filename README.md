@@ -24,18 +24,20 @@ weather on not it is correct.
 
 i wanted to make it easy for the user to restart the game. I put a large restart 
 button at the bottom of the screen also when the user wins the game or guesses wrong 
-in strict mode a ;arge button pops up inviting the user to replay the game removing
+in strict mode a ;large button pops up inviting the user to replay the game removing
 any chance for confusion. 
 
 
 Features
 -----
 
-A strict mode was added that adds chalenge to the game.
+A strict mode was added that adds challenge to the game.
 
 The Background colour changes to the colour clicked while playing the game. 
 
-The turn counter appers to rotate to keep the player updated with the current turn.
+colour change on hover to make it clear that the colours can be clicked
+
+The turn counter appears to rotate to keep the player updated with the current turn.
 
 Sounds inform the player when they have made a correct or incorrect click and when a 
 new turn has started
@@ -59,6 +61,10 @@ CSS3 and HTMl5 were used for markup and styling the site.
 Testing
 ------
 
+bug found where a single click was registering multiple times cased by .click function
+being inside a function adding multiple event listeners. this was fixed by moving the event listeners
+outside the function. 
+
 console.log used to test the simonObject.gameOrder to make sure it generates 20 random 
 numbers between 1 and 4
 
@@ -80,7 +86,9 @@ clicked the play button to make sure the game starts correctly.
 
 clicked the reset button to make sure the game resets and generates a new simonObject.gameOrder
 
-code passed though a [linter jshint] (https://jshint.com/)
+code passed through a [linter jshint](https://jshint.com/)
+
+[html](https://validator.w3.org/#validate_by_input) and [css](https://jigsaw.w3.org/css-validator/#validate_by_input) passed though validator 
 
 Deployment
 ----------
@@ -96,4 +104,6 @@ Credits
 
 sound effects from [orange free sounds](http://www.orangefreesounds.com/cartoon-failure-trumpet/)
 
-[jshint] used to check for errors in the code(https://jshint.com/)
+[jshint](https://jshint.com/) used to check for errors in the code
+
+css for button styles from from https://www.bestcssbuttongenerator.com
