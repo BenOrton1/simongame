@@ -18,21 +18,27 @@ focus of this project.
 
 I wanted to provide visual feedback to show when the user has clicked on a colour that would
 make it clear that the click had been registered and weather the click was correct or incorrect.
-i did this by flashing red for a wrong answer and white for a correct one. 
+i did this by flashing red for a wrong answer and white for a correct one. in addition 
+to this i added sounds to further indicate that the click has been registered and 
+weather on not it is correct. 
+
+i wanted to make it easy for the user to restart the game. I put a large restart 
+button at the bottom of the screen also when the user wins the game or guesses wrong 
+in strict mode a ;arge button pops up inviting the user to replay the game removing
+any chance for confusion. 
 
 
 Features
 -----
 
-rotating turn counter
+A strict mode was added that adds chalenge to the game.
 
-success and failure sounds 
+The Background colour changes to the colour clicked while playing the game. 
 
-background colout change on click
+The turn counter appers to rotate to keep the player updated with the current turn.
 
-
-
-
+Sounds inform the player when they have made a correct or incorrect click and when a 
+new turn has started
 
 [Jquery](https://jquery.com/)
 
@@ -74,6 +80,8 @@ clicked the play button to make sure the game starts correctly.
 
 clicked the reset button to make sure the game resets and generates a new simonObject.gameOrder
 
+code passed though a [linter jshint] (https://jshint.com/)
+
 Deployment
 ----------
 
@@ -87,3 +95,5 @@ Credits
 -------------
 
 sound effects from [orange free sounds](http://www.orangefreesounds.com/cartoon-failure-trumpet/)
+
+[jshint] used to check for errors in the code(https://jshint.com/)

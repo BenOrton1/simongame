@@ -45,7 +45,7 @@ $(document).ready(function() {
             $(simonColours.colours[simonColours.indexNumber]).addClass('light-up');
             const backgroundGradienteffect = 'radial-gradient(' + simonColours.backgroundColors[simonColours.indexNumber] + ',' + simonColours.backgroundGradient[simonColours.indexNumber] + ')';
             $('.button-background').css('background-image', backgroundGradienteffect);
-            setTimeout(function() { clearColours() }, simonColours.time);
+            setTimeout(function() { clearColours(); }, simonColours.time);
             simonObject.rightAnswer.play();
             playerTurnCounter();
         }
@@ -122,7 +122,7 @@ $(document).ready(function() {
     function playerTurnCounter() {
         if ((simonColours.playerCount) == simonObject.currentTurn) {
             if (simonObject.currentTurn !== simonObject.winNumber - 1) {
-                setTimeout(function() { clearColours() }, simonColours.time);
+                setTimeout(function() { clearColours(); }, simonColours.time);
                 simonColours.colorCount = 0;
                 simonObject.currentTurn++;
                 simonObject.newTurn.play();
